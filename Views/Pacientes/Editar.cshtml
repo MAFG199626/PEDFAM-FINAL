@@ -1,0 +1,64 @@
+﻿@model PEDFAM.Models.Pacientes
+
+@{
+    ViewBag.Title = "Editar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h4>Editar Usuario</h4>
+    </div>
+    <div class="panel-body">
+        <form action="@Url.Action("Editar","Pacientes")" method="post">
+
+            <input type="hidden" name="IdUser" value="@Html.DisplayTextFor(m=>m.id)" />
+
+            <div class="form-group">
+                <label>Nombre</label>
+                <input class="form-control" type="text" name="Nombre" value="@Html.DisplayTextFor(m=>m.nombrePac)" />
+            </div>
+            <div class="form-group">
+                <label>Edad</label>
+                <input class="form-control" type="text" name="Email" value="@Html.DisplayTextFor(m=>m.edad)" />
+            </div>
+            <div class="form-group">
+                <label>Tutor</label>
+                <input class="form-control" type="text" name="Password" value="@Html.DisplayTextFor(m=>m.tutor)" />
+            </div>
+            <div class="form-group">
+                <label>Alergias</label>
+                <input class="form-control" type="text" name="RolId" value="@Html.DisplayTextFor(m=>m.alergias)" />
+            </div>
+            <div class="form-group">
+                <label>Enfermedades Cronicas</label>
+                <input class="form-control" type="text" name="EstadoId" value="@Html.DisplayTextFor(m=>m.enfCronicas)" />
+            </div>
+            <div class="form-group">
+                <label>Hospitalizaciones</label>
+                <input class="form-control" type="text" name="Nombre" value="@Html.DisplayTextFor(m=>m.hospitazacion)" />
+            </div>
+            <div class="form-group">
+                <label>Operaciones</label>
+                <input class="form-control" type="text" name="Nombre" value="@Html.DisplayTextFor(m=>m.operaciones)" />
+            </div>
+            <div class="form-group">
+                <label>EMail</label>
+                <input class="form-control" type="text" name="Nombre" value="@Html.DisplayTextFor(m=>m.mai)" />
+            </div>
+            <div class="form-group">
+                <label>Contraseña</label>
+                <input class="form-control" type="text" name="Nombre" value="@Html.DisplayTextFor(m=>m.pass)" />
+            </div>
+
+
+            <hr />
+            <button type="submit" class="btn btn-primary">Actualizar</button>
+            <a class="btn btn-danger" href="@Url.Action("Inicio","Pacientes")">Volver</a>
+            <a></a>
+        </form>
+
+
+    </div>
+</div>

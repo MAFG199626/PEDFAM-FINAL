@@ -1,0 +1,50 @@
+﻿@model IEnumerable<PEDFAM.Models.Pacientes>
+@{
+    ViewBag.Title = "Inicio";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h4>Lista de Pacientes</h4>
+    </div>
+    <div class="panel-body">
+        <a class="btn btn-success" href="@Url.Action("Crear","pacientes")">Crear Nuevo</a>
+        <hr />
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Edad</th>
+                    <th>Tutor</th>
+                    <th>Alergias</th>
+                    <th>Enfermedades Cronicas</th>
+                    <th>Hospitalizaciones</th>
+                    <th>Operaciones</th>
+                    <th>EMail</th>
+                    <th style="width:150px"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.nombrePac</td>
+                        <td>@item.edad</td>
+                        <td>@item.tutor</td>
+                        <td>@item.alergias</td>
+                        <td>@item.enfCronicas</td>
+                        <td>@item.hospitazacion</td>
+                        <td>@item.operaciones</td>
+                        <td>@item.mai</td>
+                        <td>
+                            <a class="btn btn-primary btn-sm" href="@Url.Action("Editar", "pacientes", new {idPac= item.id})">Editar</a>
+                            <a class="btn btn-danger btn-sm" href="@Url.Action("Eliminar", "pacientes", new {idPac= item.id})">Eliminar</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

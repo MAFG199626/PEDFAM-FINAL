@@ -1,0 +1,117 @@
+﻿@*@model PEDFAM.Models.Citas*@
+@model IEnumerable<PEDFAM.Models.Citas>
+
+@{
+    ViewBag.Title = "DashBoard";
+}
+
+<div class="row">
+    <div class="col-lg-6">
+        <div class="panel panel-heading"><b>Reporte de Clientes: ultimos 6 meses</b></div>
+        <div class="panel-body">
+            <canvas id="myBarChart" width="100" height="50"></canvas>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="panel panel-heading"><b>Reporte de Servicios: ultimos 6 meses</b></div>
+        <div class="panel-body">
+            <canvas id="myPieChart" width="100" height="50"></canvas>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        var am = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Count(citas => citas.servicioOfrecido == "[Atención Médica]")));
+        var vc = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Count(citas => citas.servicioOfrecido == "[Vacunaciones]")));
+        var ots = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Count(citas => citas.servicioOfrecido != "[Vacunaciones]" && citas.servicioOfrecido != "[Atención Médica]")));
+
+        var controlBar = document.getElementById("myBarChart")
+        let ahora = new Date();
+        let meses = [];
+        for (let i = 0; i <= 5; i++) {
+            let fecha = new Date(ahora.getFullYear(), ahora.getMonth() - i);
+            let formatoMes = new Intl.DateTimeFormat('es-ES', { month: 'long', year: 'numeric' }).format(fecha);
+            meses.push(formatoMes);
+        }
+
+        let mesDat = [];
+        for (let i = 0; i <= 5; i++) {
+            let fecha = new Date(ahora.getFullYear(), ahora.getMonth() - i);
+            let fechaM = fecha.getMonth() + 1;
+
+
+            let now =@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(citas => DateTime.Parse(citas.fechaProgramada).Month)));
+            let nowLen =@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Count()));
+            let count = 0;
+            for (let j = 0; j < nowLen; j++) {
+                if(now[j]==fechaM)
+                count = count + 1;
+            }           
+            mesDat.push(count);
+        }
+              @*let now =@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(citas => DateTime.Parse(citas.fechaProgramada).Month).ToList()));*@
+
+        var graficoBar = new Chart(controlBar, {
+            type: 'bar',
+            data: {
+                labels: [meses[5], meses[4], meses[3], meses[2], meses[1], meses[0]],
+                datasets: [
+                    {
+                        label: "Reporte",
+                        backgroundColor: [
+                            'rgba(255, 159, 64, 0.2)',
+                            'rgba(255, 205, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(240, 101, 234, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgb(255, 159, 64)',
+                            'rgb(255, 205, 86)',
+                            'rgb(75, 192, 192)',
+                            'rgb(54, 162, 235)',
+                            'rgb(153, 102, 255)',
+                            'rgb(240, 101, 234)'
+                        ],
+                        borderWidth: 1,
+                        data: [mesDat[5], mesDat[4], mesDat[3], mesDat[2], mesDat[1], mesDat[0]]
+
+                    }
+                ]
+            },
+            options: {
+                scales: {
+                    xAxes: [{
+                        gridLines: {
+                            display: true
+                        }
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        },
+                        gridLines: {
+                            display: true
+                        }
+                    }],
+                }
+            }
+
+        })
+        var controlPie = document.getElementById("myPieChart")
+        var graficoPie = new Chart(controlPie, {
+            type: 'pie',
+            data: {
+                labels: ["Atención Medica", "Vacunaciones", "Otros"],
+                datasets: [{
+                    data: [am, vc, ots],
+                    backgroundColor: ['#007bff', '#dc3545', '#ffc107'],
+                }],
+            },
+        });
+
+    </script>
+
+}

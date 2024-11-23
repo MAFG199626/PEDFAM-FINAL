@@ -1,0 +1,44 @@
+﻿@model IEnumerable<PEDFAM.Models.Medicos>
+@{
+    ViewBag.Title = "Inicio";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h4>Lista de Medicos</h4>
+    </div>
+    <div class="panel-body">
+        <a class="btn btn-success" href="@Url.Action("Crear","medicos")">Crear Nuevo</a>
+        <hr />
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Telefono</th>
+                    <th>Url Foto</th>
+                    <th>Firma Medica</th>
+                    <th>EMail</th>
+                    <th style="width:150px"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.nombreCompleto</td>
+                        <td>@item.telefono</td>
+                        <td>@item.urlFt</td>
+                        <td>@item.urlFirmaMedica</td>
+                        <td>@item.mai</td>
+                        <td>
+                            <a class="btn btn-primary btn-sm" href="@Url.Action("Editar", "medicos", new {idPac= item.id})">Editar</a>
+                            <a class="btn btn-danger btn-sm" href="@Url.Action("Eliminar", "medicos", new {idPac= item.id})">Eliminar</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
