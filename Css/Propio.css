@@ -1,8 +1,20 @@
 ﻿.bg-b {
-    background-color: #2883cd;
+    background-color: #2783cc;
 }
 .bg-c {
     background-color: #52a8ed;
+}
+.bg-card {
+    background-color: rgba(120, 90, 233, 0.2);
+    border-radius: 80px;
+    border-block-color: rgb(120, 90, 233);
+    border-width: 30px;
+}
+.bg-card2 {
+    background-color: rgba(239, 91, 91, 0.2);
+    border-radius: 80px;
+    border-block-color: rgb(239, 91, 91);
+    border-width: 30px;
 }
 .w-65 {
     width: 65%;
@@ -12,4 +24,29 @@
 }
 .w-45 {
     width: 45%;
+}
+
+.card {
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+.card-amount {
+    font-size: 24px;
+    color: #007bff;
+}
+
+.card-icon {
+    font-size: 24px;
+    color: #666;
 }

@@ -46,6 +46,7 @@ namespace PEDFAM.Controllers
                     nombrePac = elemento.Value.nombrePac,
                     edad = elemento.Value.edad,
                     tutor = elemento.Value.tutor,
+                    alergias = elemento.Value.alergias,
                     enfCronicas = elemento.Value.enfCronicas,
                     hospitazacion = elemento.Value.hospitazacion,
                     operaciones = elemento.Value.operaciones,
@@ -79,7 +80,6 @@ namespace PEDFAM.Controllers
         public ActionResult Crear(Pacientes pacC)
         {
             string IdGenerado = Guid.NewGuid().ToString("N");
-
             pacC.userId = IdGenerado;
             pacC.id = Guid.NewGuid().ToString("N");
             SetResponse response = cliente.Set("pacientes/" + IdGenerado, pacC);
